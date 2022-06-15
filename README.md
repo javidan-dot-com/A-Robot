@@ -1,0 +1,1 @@
+This is a Robot project based on the book Eloquent JavaScript by Marijn Haverbeke. I will solve the tasks step by step with explanations and results. The goal of the project is to build an automaton, a little program that performs a task in a virtual world. Our automaton will be a mail-delivery robot picking up and dropping off parcels.
