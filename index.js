@@ -1,3 +1,5 @@
+//Meadowfield
+
 // Meadowfield Village is consist of 11 places with 14 roads 
 // between them
 
@@ -30,6 +32,31 @@ const roads = [
 
     const roadGraph = buildGraph(roads);
     console.log(roadGraph);
+
+// The Task
+
+// Our robot will be moving around the village. There are parcels in various places, each addressed to some other place. The robot picks up
+// parcels when it comes to them and delivers them when it arrives at their
+// destinations.
+
+class VillageState {
+    constructor(place, parcels) {
+    this.place = place;
+    this.parcels = parcels;
+    }
+    
+    move(destination) {
+        if (!roadGraph[this.place].includes(destination)) {
+            return this;
+        } else {
+            let parcels = this.parcels.map(p => {
+            if (p.place != this.place) return p;
+                return {place: destination, address: p.address};
+            }).filter(p => p.place != p.address);
+                return new VillageState(destination, parcels);
+        }
+    }
+}
 
 
 
