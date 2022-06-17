@@ -35,7 +35,7 @@ const roads = [
 
 // The Task
 
-// Our robot will be moving around the village. There are parcels in various places, each addressed to some other place. The robot picks up
+// Our robot will be moving around the village. There are parcels in various places, each addressed to some other place. The robot picks up
 // parcels when it comes to them and delivers them when it arrives at their
 // destinations.
 
@@ -58,7 +58,39 @@ class VillageState {
     }
 }
 
+// Simulation
 
+// A delivery robot looks at the world and decides in which direction it
+// wants to move.
+
+function runRobot(state, robot, memory) {
+    for (let turn = 0;; turn++) {
+    if (state.parcels.length == 0) {
+    console.log(`Done in ${turn} turns`);
+    break;
+    }
+    let action = robot(state, memory);
+    state = state.move(action.direction);
+    memory = action.memory;
+    console.log(`Moved to ${action.direction}`);
+    }
+}
+
+VillageState.random = function(parcelCount = 5) {
+    let parcels = [];
+    
+    for (let i = 0; i < parcelCount; i++) {
+    let address = randomPick(Object.keys(roadGraph));
+    let place;
+    do {
+        place = randomPick(Object.keys(roadGraph));
+    } while (place == address);
+        parcels.push({place, address});
+    }
+    return new VillageState("Post Office", parcels);
+};
+
+runRobot(VillageState.random(), randomRobot);
 
 
 
